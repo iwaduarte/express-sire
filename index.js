@@ -86,13 +86,13 @@ const start = async () => {
     helmet
   };
 
-  await createFolders(projectFolders).then(() => log(chalk.red(`\n Folders created!`)));
+  await createFolders(projectFolders).then(() => log(chalk.blue(`\n Folders created!`)));
   await createFiles({ files, src: dirLocationFrom, dest: dirLocationTo, opts }).then(() =>
-    log(chalk.red(` Files created!`))
+    log(chalk.blue(` Files created!`))
   );
   if (gitInit) {
     await git.init(dirLocationTo).then(message => {
-      log(chalk.red(` ${message.substring(0, 32)}!`));
+      log(chalk.blue(` ${message.substring(0, 32)}!`));
     });
   }
 
