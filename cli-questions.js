@@ -35,6 +35,17 @@ const moduleSystem = {
   choices: ['cjs', 'esm'],
   default: 'cjs'
 };
+
+const git = {
+  name: `git`,
+  message: `Would you like Git?`,
+  type: `checkbox`,
+  choices: [
+    { name: 'git', value: true, checked: true },
+    { name: '.gitignore', value: true, checked: true }
+  ]
+};
+
 const compression = {
   name: `compression`,
   message: `(Extra) Would you like to add compression?`,
@@ -54,7 +65,7 @@ const sequelize = {
   default: true
 };
 
-const questions = [intro, projectName, monorepo, moduleSystem, compression, helmet, sequelize];
+const questions = [intro, projectName, monorepo, moduleSystem, git, compression, helmet, sequelize];
 
 const prompt = async _questions => await inquirer.prompt(_questions);
 
