@@ -1,0 +1,30 @@
+{
+  "name": "express-sire",
+  "version": "1.0.0",
+  "description": "A express generator ( SIRE: A person who establishes a whole new field of endeavor, S: (Scaffold Interactively Replace Exhaustion))",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "express-sire": "index.js"
+  },
+  "keywords": [
+    "express",
+    "generator",
+    "scaffold",
+    "node.js",
+    "mvc",
+    "mvcs"
+  ],
+  "author": "Iwá Duarte",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "figlet": "^1.5.2",
+    "inquirer": "^8.0.0"
+  }
+}
