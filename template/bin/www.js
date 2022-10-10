@@ -1,15 +1,15 @@
 `#!/usr/bin/env node
 
 ${
-  esm || ''
+  opts.esm || ''
     ? `import app from '../app';
 import _debug from 'debug';
 import http from 'http'; 
 
-const debug = _debug('${projectName}:server');
+const debug = _debug('${opts.projectName}:server');
 `
     : `const app = require('../app');
-const debug = require('debug')('${projectName}:server');
+const debug = require('debug')('${opts.projectName}:server');
 const http = require('http');`
 } 
 

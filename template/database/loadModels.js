@@ -1,5 +1,5 @@
 `${
-  esm
+  opts.esm
     ? `import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));`
 const fs = require('fs');
 `
 }
-const loadModels = ${esm ? 'async' : ''} (sequelize, dataTypes) => {
+const loadModels = ${opts.esm ? 'async' : ''} (sequelize, dataTypes) => {
     if (!sequelize) throw new Error('Missing sequelize connection');
 
     const files = fs
@@ -17,7 +17,7 @@ const loadModels = ${esm ? 'async' : ''} (sequelize, dataTypes) => {
         .filter(file => file.indexOf('.') !== 0 && file.slice(-3) === '.js');
 
   ${
-    esm
+    opts.esm
       ? ` let Models = {};
    await Promise.all(
         files.map(file => {
@@ -44,5 +44,5 @@ const loadModels = ${esm ? 'async' : ''} (sequelize, dataTypes) => {
   return Models;
 };
 
-${esm ? 'export default loadModels;' : 'module.exports = loadModels;'}
+${opts.esm ? 'export default loadModels;' : 'module.exports = loadModels;'}
 `;

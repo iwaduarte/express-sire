@@ -1,5 +1,5 @@
 `${
-  esm
+  opts.esm
     ? `import Sequelize from 'sequelize';
 import loadModels from './loadModels';
 `
@@ -21,7 +21,7 @@ const sequelize = new Sequelize(DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD,
   logging: console.log
 });
 
-const models = ${esm ? 'await' : ''} loadModels(sequelize, DataTypes);
+const models = ${opts.esm ? 'await' : ''} loadModels(sequelize, DataTypes);
 
-${esm ? 'export default { sequelize, models };' : 'module.exports = {sequelize,models}'}
+${opts.esm ? 'export default { sequelize, models };' : 'module.exports = {sequelize,models}'}
 `;
