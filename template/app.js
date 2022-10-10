@@ -17,7 +17,7 @@ const logger = require('morgan');
 ${opts.compression ? `const compression = require('compression');\n` : ``} ${
         opts.helmet ? `const helmet = require('helmet');\n` : ``
       }`
-} const mainRouter = require('./routes/routes');
+}const mainRouter = require('./routes/routes');
 const usersRouter = require('./routes/users');
 
 const app = express();
