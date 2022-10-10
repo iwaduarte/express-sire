@@ -62,7 +62,7 @@ const start = async () => {
   //missing git (init repository)
   const files = [
     '.env.js',
-    'index.js',
+    'app.js',
     'package.json.js',
     [join('bin', 'www.js'), MODE_0755, true],
     ...(gitIgnore ? ['.gitignore'] : []),
@@ -79,17 +79,20 @@ const start = async () => {
   ];
 
   const opts = {
+    projectName,
     esm: moduleSystem === 'esm',
     sequelize,
     compression,
     helmet
   };
 
-  await createFolders(projectFolders);
-  await createFiles({ files, src: dirLocationFrom, dest: dirLocationTo, opts });
+  await createFolders(projectFolders).then(() => log(chalk.red(`\n Folders created!`)));
+  await createFiles({ files, src: dirLocationFrom, dest: dirLocationTo, opts }).then(() =>
+    log(chalk.red(` Files created!`))
+  );
   if (gitInit) {
     await git.init(dirLocationTo).then(message => {
-      log(chalk.red(message));
+      log(chalk.red(` ${message.substring(0, 32)}!`));
     });
   }
 
