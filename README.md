@@ -1,12 +1,21 @@
 <img src="https://user-images.githubusercontent.com/24816534/194910961-c1f17e78-efb0-4b52-b5ca-fc2cec3da0f5.png" alt="Express Sire Logo" width="358" style="max-width: 100%;">
 
-[Express ](https://www.npmjs.com/package/express) application generator with flavors. It adds: 
+Express-Sire: [Express ](https://www.npmjs.com/package/express) application generator with flavors. It brings to the table: 
+
+### Customizable features
 - ESM Modules or CJS
-- Sequelize support with postgres
-- JSON returning data as default
+- Express JSON API
+- Git
 - Prettier
-- Compression 
-- Helmet
+
+### Optional modules:
+- Sequelize support with Postgres ([sequelize@v6](https://github.com/sequelize/sequelize),
+[pg-hstore](https://github.com/scarney81/pg-hstore),
+[pg](https://github.com/brianc/node-postgres/tree/master/packages/pg))
+ 
+- [Compression](https://github.com/expressjs/compression)
+- [Helmet](https://github.com/helmetjs/helmet)
+
 
 ## Installation
 
@@ -34,7 +43,9 @@ Start your app at `http://localhost:3000/`:
 $ npm start
 ```
 
-- [ ] Add authentication templating :tada:
+
+
+- [ ] Add authentication templating 
 
 # Command Line Options
 
