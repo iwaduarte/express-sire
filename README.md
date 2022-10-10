@@ -30,11 +30,23 @@ Create the app:
 ```bash
 $ express-sire
 ```
+![express-sire-cli](https://user-images.githubusercontent.com/24816534/194957287-1669c841-f706-41a8-81b6-bdad3bb00acf.png)
 
 Install dependencies:
 
 ```bash
 $ npm install
+```
+
+*For Sequelize users*\
+Populate the .env with POSTGRES credentials
+
+```yaml
+DATABASE_NAME=
+DATABASE_USER=
+DATABASE_PASSWORD=
+DATABASE_HOST=
+DATABASE_DIALECT="postgres"
 ```
 
 Start your app at `http://localhost:3000/`:
@@ -43,9 +55,6 @@ Start your app at `http://localhost:3000/`:
 $ npm start
 ```
 
-
-
-- [ ] Add authentication templating 
 
 # Command Line Options
 
