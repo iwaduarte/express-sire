@@ -88,7 +88,9 @@ const start = async () => {
   await createFolders(projectFolders);
   await createFiles({ files, src: dirLocationFrom, dest: dirLocationTo, opts });
   if (gitInit) {
-    await git.init(dirLocationTo);
+    await git.init(dirLocationTo).then(message => {
+      log(chalk.red(message));
+    });
   }
 
   log(
