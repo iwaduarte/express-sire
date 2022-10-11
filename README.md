@@ -37,8 +37,9 @@ Install dependencies:
 ```bash
 $ npm install
 ```
+***
+*For Sequelize users*
 
-*For Sequelize users*\
 Populate the .env with POSTGRES credentials
 
 ```yaml
@@ -49,6 +50,12 @@ DATABASE_HOST=
 DATABASE_DIALECT="postgres"
 ```
 
+Create table and properties inside database
+```bash
+$ npm run update-db;
+```
+
+***
 Start your app at `http://localhost:3000/`:
 
 ```bash
@@ -56,7 +63,7 @@ $ npm start
 ```
 
 
-# Command Line Options
+# Command Line Options (todo)
 
 This generator can also be further configured with the following command line flags.
 
