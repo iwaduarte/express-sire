@@ -4,7 +4,8 @@
   "description": "A express generator ( SIRE: A person who establishes a whole new field of endeavor, S: (Scaffold Interactively Replace Exhaustion))",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint **/*.js"
   },
   "bin": {
     "express-sire": "index.js"
@@ -20,7 +21,12 @@
   "author": "Iwá Duarte <iwaduarte.dev@gmail.com> (iwaduarte.dev)",
   "license": "MIT",
   "devDependencies": {
-    "prettier": "^2.7.1"
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.2",
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.5"
   },
   "dependencies": {
     "chalk": "^4.1.2",

@@ -1,0 +1,19 @@
+name: test and lint pr's
+on:
+  pull_request:
+    branches:
+      - develop
+jobs:
+  build:
+    name: Pull Request checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.X'
+      - run: npm ci
+      - name: Linting application
+        run: npm run lint
+      - name: Test Application
+        run: npm test
