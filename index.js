@@ -53,9 +53,10 @@ const start = async () => {
   const dirLocationTo = join(process.cwd(), projectName, backendFolder);
   const projectFolders = [
     join(projectName, backendFolder, 'routes'),
-    join(projectName, backendFolder, 'controllers'),
     join(projectName, backendFolder, 'bin'),
-    sequelize ? join(projectName, backendFolder, 'database', 'models') : null,
+    ...(sequelize
+      ? [join(projectName, backendFolder, 'database', 'models'), join(projectName, backendFolder, 'controllers')]
+      : []),
     frontendFolder
   ];
   const [gitInit, gitIgnore] = gitOpts;
@@ -67,13 +68,14 @@ const start = async () => {
     [join('bin', 'www.js'), MODE_0755, true],
     ...(gitIgnore ? ['.gitignore'] : []),
     join('routes', 'routes.js'),
-    join('routes', 'users.js'),
     ...(sequelize
       ? [
+          join('routes', 'users.js'),
           join('database', 'connect.js'),
           join('database', 'loadModels.js'),
           join('database', 'syncDatabase.js'),
-          join('database', `models`, 'User.js')
+          join('database', `models`, 'User.js'),
+          join('controllers', 'user.js')
         ]
       : [])
   ];

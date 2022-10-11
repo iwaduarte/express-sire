@@ -18,9 +18,7 @@ ${opts.compression ? `const compression = require('compression');\n` : ``} ${
         opts.helmet ? `const helmet = require('helmet');\n` : ``
       }`
 }const mainRouter = require('./routes/routes');
-const usersRouter = require('./routes/users');
-
-const app = express();
+${opts.sequelize ? "const usersRouter = require('./routes/users');\n" : ''} const app = express();
 
 app.disable('x-powered-by');
 
@@ -36,8 +34,7 @@ app.use(helmet());\n
 `
     : ''
 } app.use('/', indexRouter);
-app.use('/users', usersRouter);
- 
+${opts.sequelize ? "app.use('/users', usersRouter);\n" : ''} 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
