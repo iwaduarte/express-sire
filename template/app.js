@@ -5,20 +5,20 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-${opts.compression ? `import compression from 'compression';\n` : ``} ${
-        opts.helmet ? `import helmet from 'helmet';\n` : ``
-      }
+${opts.compression ? `import compression from 'compression';` : ``}
+${opts.helmet ? `import helmet from 'helmet';` : ``}
 `
     : `const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-${opts.compression ? `const compression = require('compression');\n` : ``} ${
-        opts.helmet ? `const helmet = require('helmet');\n` : ``
-      }`
-}const mainRouter = require('./routes/routes');
-${opts.sequelize ? "const usersRouter = require('./routes/users');\n" : ''} const app = express();
+${opts.compression ? `const compression = require('compression');` : ``}
+${opts.helmet ? `const helmet = require('helmet');` : ``}`
+}
+const mainRouter = require('./routes/routes');
+${opts.sequelize ? "const usersRouter = require('./routes/users');" : ''}
+const app = express();
 
 app.disable('x-powered-by');
 
@@ -26,25 +26,27 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-${opts.compression ? `app.use(compression());\n` : ``} ${
+${opts.compression ? `app.use(compression());` : ``}
+${
   opts.helmet
     ? `
 // be aware of helmet configurations for you best use case https://helmetjs.github.io/
-app.use(helmet());\n
+app.use(helmet());
 `
     : ''
-} app.use('/', indexRouter);
-${opts.sequelize ? "app.use('/users', usersRouter);\n" : ''} 
+}
+app.use('/', mainRouter);
+${opts.sequelize ? "app.use('/users', usersRouter);" : ''} 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res) {
-  // set locals, only providing error in development
+app.use((err, req, res) => {
+  // only providing detailed error in development
   res.status(err.status || 500);
-  return res.json(  req.app.get('env') === 'development' ? err : { err: "Ops."} );
+  return res.json( req.app.get('env') === 'development' ? err : { err: "Ops."} );
 });
 
 ${opts.esm ? 'export default app;' : 'module.exports = app;'}

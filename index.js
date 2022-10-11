@@ -7,6 +7,7 @@ const { promisify } = require('util');
 const rimraf = promisify(require('rimraf'));
 const { questions, prompt } = require('./cli-questions');
 const git = require('./init');
+const prettier = require('prettier');
 const [introQuestion, ..._questions] = questions;
 
 const MODE_0666 = parseInt('0666', 8);
@@ -27,9 +28,12 @@ const createFolders = (folders = []) =>
 const createFiles = ({ files = [], src = '', dest = '', opts }) =>
   Promise.all(
     files.map(async fileToCreate => {
-      const [fileName, mode, removeJSExt] = Array.isArray(fileToCreate) ? fileToCreate : [fileToCreate, MODE_0666];
+      const [fileName, mode, removeJSExt, prettify] = Array.isArray(fileToCreate)
+        ? fileToCreate
+        : [fileToCreate, MODE_0666];
       const fileTemplate = await fsPromises.readFile(join(src, fileName), 'utf-8');
-      const fileObject = fileName.includes('.js') ? eval(fileTemplate) : fileTemplate;
+      const _fileObject = fileName.includes('.js') ? eval(fileTemplate) : fileTemplate;
+      const fileObject = prettify ? prettier.format(_fileObject, { filepath: prettify }) : _fileObject;
       const newFileName = fileName.split('.').length > 2 || removeJSExt ? fileName.replace(/(.js)$/, '') : fileName;
 
       return fsPromises.writeFile(join(dest, newFileName), fileObject, {
@@ -63,8 +67,9 @@ const start = async () => {
   //missing git (init repository)
   const files = [
     '.env.js',
-    'app.js',
-    'package.json.js',
+    ['app.js', MODE_0666, false, 'app.js'],
+    ['package.json.js', MODE_0666, false, 'package.json'],
+    // 'package.json.js',
     [join('bin', 'www.js'), MODE_0755, true],
     ...(gitIgnore ? ['.gitignore'] : []),
     join('routes', 'routes.js'),
