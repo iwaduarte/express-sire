@@ -1,4 +1,4 @@
-`${esm ? "import bcrypt from 'bcrypt';" : "const bcrypt = require('bcrypt')"};
+`${opts.esm ? "import bcrypt from 'bcrypt';" : "const bcrypt = require('bcrypt');"};
 
 // it can go to a different file
 // if extra authentication features are provided
@@ -60,19 +60,14 @@ const user = (sequelize, DataTypes) => {
         returning: true
       },
       scopes: {
-        provider: {
+        deleted: {
           where: {
-            userType: 'provider'
+            deleted: true
           }
         },
-        customer: {
+        activeUsers: {
           where: {
-            userType: 'customer'
-          }
-        },
-        operator: {
-          where: {
-            userType: 'operator'
+            status: 'active'
           }
         }
       }
@@ -108,5 +103,4 @@ const user = (sequelize, DataTypes) => {
   return User;
 };
 
-${esm ? 'export default user;' : 'module.exports = user'};
-`;
+${opts.esm ? 'export default user;' : 'module.exports = user'};`;
