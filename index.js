@@ -26,6 +26,8 @@ const createFolders = (folders = []) =>
   Promise.all(
     folders.map(dirToCreate => dirToCreate && fsPromises.mkdir(dirToCreate, { recursive: true, mode: MODE_0755 }))
   );
+
+// eslint-disable-next-line no-unused-vars
 const createFiles = ({ files = [], src = '', dest = '', opts }) =>
   Promise.all(
     files.map(async fileToCreate => {
