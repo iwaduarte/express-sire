@@ -26,7 +26,7 @@ $ npm install -g express-sire
 
 ## Get Started
 
-Create the app:
+Create the app via __interactive__ cli:
 
 ```bash
 $ express-sire
@@ -64,14 +64,24 @@ $ npm start
 ```
 
 
-# Command Line Options (todo)
+# Command Line Options 
+
+```bash
+$ express-sire -n <new-project> -a
+```
 
 This generator can also be further configured with the following command line flags.
 
-        --version        output the version number
-    -y, --yes            Yes to all answers
-        --git            add .gitignore
-    -h, --help           output usage information
+    -a, -all ---------------- Include every configuration same as 
+                              express-sire -n <new-project>  -mn -ms cjs -gf -gi -c -h -s)
+    -n,  --name <name> ------ Project name (mandatory for raw cli only)
+    -mn, --monorepo --------- Add monorepo folders (backend/ and frontend/) (default: false)
+    -ms, --modsytem <type> -- Add either cjs|esm. (default: 'cjs') 
+    -gi, --gitignore -------- Add .gitignore (default: false)
+    -gf, --gitfolder -------- Initialize git folder (default: false)
+    -c,  --compression ------ Add compression package (default:false)
+    -h,  --helmet ----------- Add helmet sequelize (default:false)
+    -s,  --sequelize -------- Add sequelize with Postgres support (default:false)
 
 
 

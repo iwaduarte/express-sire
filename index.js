@@ -2,6 +2,7 @@ const fs = require('fs');
 const fsPromises = fs.promises;
 const { join } = require('path');
 const chalk = require('chalk');
+const minimist = require('minimist');
 const { textSync } = require('figlet');
 const { promisify } = require('util');
 const rimraf = promisify(require('rimraf'));
@@ -42,13 +43,76 @@ const createFiles = ({ files = [], src = '', dest = '', opts }) =>
     })
   );
 
-const start = async () => {
+const cli = async () => {
   log(chalk.green(textSync('Express-Sire', { horizontalLayout: 'full' })));
   const { intro } = await prompt([introQuestion]);
   if (intro === 'No') process.exit(1);
 
-  const answers = await prompt(_questions);
-  const { projectName, monorepo, moduleSystem, compression, helmet, sequelize, git: gitOpts } = answers || {};
+  return prompt(_questions);
+};
+
+const parseArgs = () => {
+  const args = minimist(process.argv.slice(2), {
+    alias: {
+      a: 'all',
+      n: 'name',
+      mn: 'monorepo',
+      ms: 'modsystem',
+      gi: 'gitignore',
+      gf: 'gitfolder',
+      c: 'compression',
+      h: 'helmet',
+      s: 'sequelize'
+    },
+    string: ['name', 'modsystem']
+  });
+
+  const {
+    all,
+    name: projectName,
+    monorepo = false,
+    modsystem: moduleSystem,
+    gitignore = false,
+    gitfolder = false,
+    compression = false,
+    helmet = false,
+    sequelize = false
+  } = args;
+  console.log(args);
+  if (!(projectName && projectName.trim())) return false;
+  if (all)
+    return {
+      projectName,
+      monorepo: true,
+      moduleSystem: moduleSystem || 'cjs',
+      compression: true,
+      helmet: true,
+      sequelize: true,
+      git: [true, true]
+    };
+
+  return {
+    projectName,
+    monorepo,
+    moduleSystem: moduleSystem || 'cjs',
+    compression,
+    helmet,
+    sequelize,
+    git: [gitignore, gitfolder]
+  };
+};
+
+const start = async () => {
+  const {
+    projectName,
+    monorepo,
+    moduleSystem,
+    compression,
+    helmet,
+    sequelize,
+    git: gitOpts
+  } = parseArgs() || (await cli()) || {};
+
   rollback.projectName = projectName;
 
   const backendFolder = monorepo ? 'backend' : '';
@@ -64,7 +128,6 @@ const start = async () => {
     frontendFolder
   ];
   const [gitInit, gitIgnore] = gitOpts;
-  //missing git (init repository)
   const files = [
     '.env.js',
     ['app.js', MODE_0666, false, 'app.js'],
