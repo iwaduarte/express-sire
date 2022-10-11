@@ -17,7 +17,7 @@
     "mvc",
     "mvcs"
   ],
-  "author": "Iwá Duarte",
+  "author": "Iwá Duarte <iwaduarte.dev@gmail.com> (iwaduarte.dev)",
   "license": "MIT",
   "devDependencies": {
     "prettier": "^2.7.1"
@@ -28,5 +28,12 @@
     "inquirer": "^8.0.0",
     "minimist": "^1.2.7",
     "rimraf": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iwaduarte/express-sire.git"
   }
 }
