@@ -1,5 +1,10 @@
-`${opts.esm ? "import {models} from '../database/connect'" : "const { models } = require('../database/connect')"};
+`${
+  opts.esm
+    ? "import SequelizeObject from '../database/connect'"
+    : "const SequelizeObject = require('../database/connect')"
+};
 
+const { models } = SequelizeObject;
 const { User } = models;
 
 const getAllUsers = () => User.findAll();
@@ -10,6 +15,6 @@ const deleteUser = id => User.destroy({ where: { id } });
 
 ${
   opts.esm
-    ? 'module.exports = { getUser, getAllUsers, createUser, updateUser, deleteUser };'
-    : 'export default  { getUser, getAllUsers, createUser, updateUser, deleteUser };'
+    ? 'export default  { getUser, getAllUsers, createUser, updateUser, deleteUser };'
+    : 'module.exports = { getUser, getAllUsers, createUser, updateUser, deleteUser };'
 }`;

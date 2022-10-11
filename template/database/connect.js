@@ -23,5 +23,5 @@ const sequelize = new Sequelize(DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD,
 
 const models = ${opts.esm ? 'await' : ''} loadModels(sequelize, DataTypes);
 
-${opts.esm ? 'export default { sequelize, models };' : 'module.exports = {sequelize,models}'}
+${opts.esm ? 'export default { sequelize, models };' : 'module.exports = { sequelize, models }'}
 `;

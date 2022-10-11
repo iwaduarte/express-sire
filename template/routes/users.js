@@ -1,11 +1,10 @@
 `${
   opts.esm
-    ? `import express from 'express';
-import {createUser,getUser, getAllUsers, updateUser, deleteUser} from "../controllers/user";`
-    : `const express = require('express');
-    const {createUser, getUser, getAllUsers, updateUser, deleteUser} = require('../controllers/user');`
+    ? `import express from 'express';\nimport UserModel from "../controllers/user";`
+    : `const express = require('express');\nconst UserModel = require('../controllers/user');`
 }
 
+const { createUser, getUser, getAllUsers, updateUser, deleteUser } = UserModel
 const router = express.Router();
 
 router.get('/', async (req, res) =>  {
@@ -17,6 +16,7 @@ router.get('/:id', async (req, res) =>  {
     const { id } = params;
     return res.json(await getUser(id))
 });
+
 router.post('/', async (req, res) => {
     //mockedUser - you should remove after testing
     const user = {
@@ -26,11 +26,13 @@ router.post('/', async (req, res) => {
     const {body} = req;
     return res.json(await createUser(body || user ))
 } );
+
 router.put('/:id', async (req, res) => {
     const { params, body} = req;
     const { id } = params;
     return res.json(await updateUser(id,body))
 } );
+
 router.delete('/:id', async (req, res) => {
     const { params } = req;
     const { id } = params;
