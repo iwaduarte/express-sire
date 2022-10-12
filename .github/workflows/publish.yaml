@@ -16,9 +16,9 @@ jobs:
       - run:
           |
           npm ci
-          npm publish
-#          npm install semantic-release -g
-#          semantic-release
+          npm install semantic-release -g
+          semantic-release
+#         npm publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
