@@ -1,16 +1,13 @@
-const fs = require('fs');
-const fsPromises = fs.promises;
 const { join } = require('path');
 const chalk = require('chalk');
-const minimist = require('minimist');
-const { textSync } = require('figlet');
 const { promisify } = require('util');
 const rimraf = promisify(require('rimraf'));
-const { questions, prompt } = require('./cli-questions');
+const { questions } = require('./cli-questions');
 const git = require('./init');
-const prettier = require('prettier');
-const [introQuestion, ..._questions] = questions;
+const { cli, interactiveCLI } = require('./cli');
+const { createFolders, createFiles } = require('./files');
 
+const [introQuestion, ..._questions] = questions;
 const MODE_0666 = parseInt('0666', 8);
 const MODE_0755 = parseInt('0755', 8);
 
@@ -22,88 +19,6 @@ process.on('SIGINT', () => rollbackFn(rollback.projectName));
 
 process.on('uncaughtException', () => rollbackFn(rollback.projectName));
 
-const createFolders = (folders = []) =>
-  Promise.all(
-    folders.map(dirToCreate => dirToCreate && fsPromises.mkdir(dirToCreate, { recursive: true, mode: MODE_0755 }))
-  );
-
-// eslint-disable-next-line no-unused-vars
-const createFiles = ({ files = [], src = '', dest = '', opts }) =>
-  Promise.all(
-    files.map(async fileToCreate => {
-      const [fileName, mode, removeJSExt, prettify] = Array.isArray(fileToCreate)
-        ? fileToCreate
-        : [fileToCreate, MODE_0666];
-      const fileTemplate = await fsPromises.readFile(join(src, fileName), 'utf-8');
-      const _fileObject = fileName.includes('.js') ? eval(fileTemplate) : fileTemplate;
-      const fileObject = prettify ? prettier.format(_fileObject, { filepath: prettify }) : _fileObject;
-      const newFileName = fileName.split('.').length > 2 || removeJSExt ? fileName.replace(/(.js)$/, '') : fileName;
-
-      return fsPromises.writeFile(join(dest, newFileName), fileObject, {
-        mode
-      });
-    })
-  );
-
-const cli = async () => {
-  log(chalk.green(textSync('Express-Sire', { horizontalLayout: 'full' })));
-  const { intro } = await prompt([introQuestion]);
-  if (intro === 'No') process.exit(1);
-
-  return prompt(_questions);
-};
-
-const parseArgs = () => {
-  const args = minimist(process.argv.slice(2), {
-    alias: {
-      a: 'all',
-      n: 'name',
-      mn: 'monorepo',
-      ms: 'modsystem',
-      gi: 'gitignore',
-      gf: 'gitfolder',
-      c: 'compression',
-      h: 'helmet',
-      s: 'sequelize'
-    },
-    string: ['name', 'modsystem']
-  });
-
-  const {
-    all,
-    name: projectName,
-    monorepo = false,
-    modsystem: moduleSystem,
-    gitignore = false,
-    gitfolder = false,
-    compression = false,
-    helmet = false,
-    sequelize = false
-  } = args;
-  console.log(args);
-  if (!(projectName && projectName.trim())) return false;
-  if (all)
-    return {
-      projectName,
-      monorepo: true,
-      moduleSystem: moduleSystem || 'cjs',
-      compression: true,
-      helmet: true,
-      sequelize: true,
-      git: [true, true]
-    };
-
-  return {
-    projectName,
-    monorepo,
-    moduleSystem: moduleSystem || 'cjs',
-    compression,
-    helmet,
-    sequelize,
-    git: [gitignore, gitfolder]
-  };
-};
-
 const start = async () => {
   const {
     projectName,
@@ -113,7 +28,7 @@ const start = async () => {
     helmet,
     sequelize,
     git: gitOpts
-  } = parseArgs() || (await cli()) || {};
+  } = cli(process.argv.slice(2)) || (await interactiveCLI(introQuestion, _questions)) || {};
 
   rollback.projectName = projectName;
 
@@ -134,7 +49,6 @@ const start = async () => {
     '.env.js',
     ['app.js', MODE_0666, false, 'app.js'],
     ['package.json.js', MODE_0666, false, 'package.json'],
-    // 'package.json.js',
     [join('bin', 'www.js'), MODE_0755, true],
     ...(gitIgnore ? ['.gitignore'] : []),
     join('routes', 'routes.js'),
@@ -184,7 +98,7 @@ const rollbackFn = (path = '') => {
   if (path) return rimraf(join(process.cwd(), path));
 };
 
-return start().catch(async err => {
+start().catch(async err => {
   const { projectName } = rollback;
   console.log(err);
   await rollbackFn(projectName);
