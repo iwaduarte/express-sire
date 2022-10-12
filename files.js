@@ -19,11 +19,11 @@ const createFolders = (folders = []) =>
 const createFiles = ({ files = [], src = '', dest = '', opts }) =>
   Promise.all(
     files.map(async file => {
-      const { fileName, mode = MODE_0666, output, prettify } = typeof file === `string` ? { filename: file } : file;
-      const fileTemplate = await fsPromises.readFile(join(src, fileName), 'utf-8');
-      const _fileObject = fileName.includes('.js') ? eval(fileTemplate) : fileTemplate;
+      const { filename, mode = MODE_0666, output, prettify } = typeof file === `string` ? { filename: file } : file;
+      const fileTemplate = await fsPromises.readFile(join(src, filename), 'utf-8');
+      const _fileObject = filename.includes('.js') ? eval(fileTemplate) : fileTemplate;
       const fileObject = prettify ? prettier.format(_fileObject, { filepath: prettify }) : _fileObject;
-      const newFileName = output ? output : fileName;
+      const newFileName = output ? output : filename;
 
       return fsPromises.writeFile(join(dest, newFileName), fileObject, {
         mode
