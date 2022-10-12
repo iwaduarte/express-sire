@@ -2,7 +2,7 @@ name: test and lint pr's
 on:
   pull_request:
     branches:
-      - develop
+      - master
 jobs:
   build:
     name: Pull Request checks
