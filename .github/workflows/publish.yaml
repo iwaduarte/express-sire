@@ -13,12 +13,12 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - run:
+      - name: "Release package"
+        run:
           |
           npm ci
           npm install semantic-release -g
           semantic-release
-#         npm publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
