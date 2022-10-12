@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
+      - run: npm ci --include=dev
       - run: npx semantic release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
