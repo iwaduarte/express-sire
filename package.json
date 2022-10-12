@@ -2,7 +2,7 @@
   "name": "express-sire",
   "version": "1.0.1",
   "description": "A express generator ( SIRE: A person who establishes a whole new field of endeavor, S: (Scaffold Interactively Replace Exhaustion))",
-  "main": "index.js",
+  "main": "bin/express-sire.js",
   "preferGlobal": true,
   "scripts": {
     "test": "jest",
@@ -10,7 +10,7 @@
     "semantic-release": "semantic-release"
   },
   "bin": {
-    "express-sire": "./index.js"
+    "express-sire": "bin/express-sire.js"
   },
   "keywords": [
     "express",

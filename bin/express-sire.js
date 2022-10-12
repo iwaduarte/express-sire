@@ -4,10 +4,10 @@ const { join } = require('path');
 const chalk = require('chalk');
 const { promisify } = require('util');
 const rimraf = promisify(require('rimraf'));
-const { questions } = require('./cli-questions');
-const git = require('./init');
-const { cli, interactiveCLI } = require('./cli');
-const { createFolders, createFiles } = require('./files');
+const { questions } = require('../cli-questions');
+const git = require('../init');
+const { cli, interactiveCLI } = require('../cli');
+const { createFolders, createFiles } = require('../files');
 
 const [introQuestion, ..._questions] = questions;
 const MODE_0666 = parseInt('0666', 8);
