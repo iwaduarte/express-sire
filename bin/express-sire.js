@@ -48,11 +48,11 @@ const start = async () => {
   ];
   const [gitInit, gitIgnore] = gitOpts;
   const files = [
-    '.env.js',
-    ['app.js', MODE_0666, false, 'app.js'],
-    ['package.json.js', MODE_0666, false, 'package.json'],
-    [join('bin', 'www.js'), MODE_0755, true],
-    ...(gitIgnore ? ['.gitignore'] : []),
+    'env.js',
+    { filename: 'app.js', prettify: 'app.js' },
+    { filename: 'package.json.js', output: 'package.json', prettify: 'package.json' },
+    { filename: join('bin', 'www.js'), MODE_0755, output: 'www' },
+    ...(gitIgnore ? [{ filename: 'gitignore', output: '.gitignore' }] : []),
     join('routes', 'routes.js'),
     ...(sequelize
       ? [

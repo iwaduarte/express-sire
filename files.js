@@ -18,14 +18,12 @@ const createFolders = (folders = []) =>
 // eslint-disable-next-line no-unused-vars
 const createFiles = ({ files = [], src = '', dest = '', opts }) =>
   Promise.all(
-    files.map(async fileToCreate => {
-      const [fileName, mode, removeJSExt, prettify] = Array.isArray(fileToCreate)
-        ? fileToCreate
-        : [fileToCreate, MODE_0666];
+    files.map(async file => {
+      const { fileName, mode = MODE_0666, output, prettify } = typeof file === `string` ? { filename: file } : file;
       const fileTemplate = await fsPromises.readFile(join(src, fileName), 'utf-8');
       const _fileObject = fileName.includes('.js') ? eval(fileTemplate) : fileTemplate;
       const fileObject = prettify ? prettier.format(_fileObject, { filepath: prettify }) : _fileObject;
-      const newFileName = fileName.split('.').length > 2 || removeJSExt ? fileName.replace(/(.js)$/, '') : fileName;
+      const newFileName = output ? output : fileName;
 
       return fsPromises.writeFile(join(dest, newFileName), fileObject, {
         mode
