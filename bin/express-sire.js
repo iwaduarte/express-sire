@@ -10,7 +10,6 @@ const { cli, interactiveCLI } = require('../cli');
 const { createFolders, createFiles } = require('../files');
 
 const [introQuestion, ..._questions] = questions;
-const MODE_0666 = parseInt('0666', 8);
 const MODE_0755 = parseInt('0755', 8);
 
 const { log } = console;
