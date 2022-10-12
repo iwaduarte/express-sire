@@ -35,7 +35,7 @@ const start = async () => {
 
   const backendFolder = monorepo ? 'backend' : '';
   const frontendFolder = monorepo ? join(projectName, 'frontend') : '';
-  const dirLocationFrom = join(__dirname, `templates`);
+  const dirLocationFrom = join(__dirname.replace('bin', ''), `templates`);
   const dirLocationTo = join(process.cwd(), projectName, backendFolder);
   const projectFolders = [
     join(projectName, backendFolder, 'routes'),
@@ -47,10 +47,10 @@ const start = async () => {
   ];
   const [gitInit, gitIgnore] = gitOpts;
   const files = [
-    'env.js',
+    { filename: 'env.js', output: '.env' },
     { filename: 'app.js', prettify: 'app.js' },
-    { filename: 'package.json.js', output: 'package.json', prettify: 'package.json' },
-    { filename: join('bin', 'www.js'), MODE_0755, output: 'www' },
+    { filename: 'package.json.js', prettify: 'package.json', output: 'package.json' },
+    { filename: join('bin', 'www.js'), mode: MODE_0755, output: 'www' },
     ...(gitIgnore ? [{ filename: 'gitignore', output: '.gitignore' }] : []),
     join('routes', 'routes.js'),
     ...(sequelize
