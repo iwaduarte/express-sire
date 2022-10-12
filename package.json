@@ -1,11 +1,12 @@
 {
   "name": "express-sire",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "A express generator ( SIRE: A person who establishes a whole new field of endeavor, S: (Scaffold Interactively Replace Exhaustion))",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint **/*.js"
+    "lint": "eslint **/*.js",
+    "semantic-release": "semantic-release"
   },
   "bin": {
     "express-sire": "index.js"
