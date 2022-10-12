@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const { isEmptyOrNewDirectory } = require('./files');
+const path = require('path');
 
 const intro = {
   name: `intro`,
@@ -17,7 +18,7 @@ const projectName = {
     const ONLY_ALPHANUMERIC_REGEX = /^([a-zA-Z0-9-_]){3,20}$/;
     if (!ONLY_ALPHANUMERIC_REGEX.test(answer))
       return `Please inform a valid project name (only alphanumeric; 3-20 length max)`;
-    if (!isEmptyOrNewDirectory(answer))
+    if (!isEmptyOrNewDirectory(path.join(process.cwd(), answer)))
       return `The directory ${answer} contains files/folders that could conflict. You should provide an empty folder`;
     return true;
   }
