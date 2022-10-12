@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { join } = require('path');
 const chalk = require('chalk');
 const { promisify } = require('util');
@@ -34,7 +36,7 @@ const start = async () => {
 
   const backendFolder = monorepo ? 'backend' : '';
   const frontendFolder = monorepo ? join(projectName, 'frontend') : '';
-  const dirLocationFrom = join(__dirname, `template`);
+  const dirLocationFrom = join(__dirname, `templates`);
   const dirLocationTo = join(process.cwd(), projectName, backendFolder);
   const projectFolders = [
     join(projectName, backendFolder, 'routes'),
