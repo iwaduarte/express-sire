@@ -50,7 +50,7 @@ const start = async () => {
     { filename: 'env.js', output: '.env' },
     { filename: 'app.js', prettify: 'app.js' },
     { filename: 'package.json.js', prettify: 'package.json', output: 'package.json' },
-    { filename: join('bin', 'www.js'), mode: MODE_0755, output: 'www' },
+    { filename: join('bin', 'www.js'), mode: MODE_0755, output: join('bin', 'www') },
     ...(gitIgnore ? [{ filename: 'gitignore', output: '.gitignore' }] : []),
     join('routes', 'routes.js'),
     ...(sequelize
@@ -87,9 +87,10 @@ const start = async () => {
     chalk.yellow(`
   ##############################################
     \\o/ All good to go! 
-    To run: 
-        1 - npm install
-        2 - npm start
+    Running instructions: 
+        1 - cd <project-name> 
+        2 - npm install
+        3 - npm start
   ##############################################
   `)
   );
