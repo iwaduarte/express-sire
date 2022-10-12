@@ -3,13 +3,14 @@
   "version": "1.0.1",
   "description": "A express generator ( SIRE: A person who establishes a whole new field of endeavor, S: (Scaffold Interactively Replace Exhaustion))",
   "main": "index.js",
+  "preferGlobal": true,
   "scripts": {
     "test": "jest",
     "lint": "eslint **/*.js",
     "semantic-release": "semantic-release"
   },
   "bin": {
-    "express-sire": "index.js"
+    "express-sire": "./index.js"
   },
   "keywords": [
     "express",
@@ -40,6 +41,14 @@
   "engines": {
     "node": ">=10.0.0"
   },
+  "files": [
+    "init.js",
+    "index.js",
+    "files.js",
+    "cli-questions.js",
+    "cli.js",
+    "templates/"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/iwaduarte/express-sire.git"
