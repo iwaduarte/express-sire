@@ -38,6 +38,7 @@ app.use(helmet());
 `
     : ''
 }
+app.get('/favicon.ico', (req, res) => res.status(204));
 app.use('/', mainRouter);
 ${opts.sequelize ? "app.use('/users', usersRouter);" : ''} 
 // catch 404 and forward to error handler
