@@ -4,7 +4,6 @@
     dotenv.config();
     import createError from 'http-errors';
 import express from 'express';
-import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 ${opts.compression ? `import compression from 'compression';` : ``}
@@ -16,7 +15,6 @@ ${opts.sequelize ? "import usersRouter from './routes/users.js';" : ''}
     : `require('dotenv').config();
     const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 ${opts.compression ? `const compression = require('compression');` : ``}
