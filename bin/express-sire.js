@@ -88,7 +88,7 @@ const start = async () => {
   ##############################################
     \\o/ All good to go! 
     Running instructions: 
-        1 - cd <project-name> 
+        1 - cd <project-name> ${backendFolder} && /${backendFolder} 
         2 - npm install
         3 - npm start
   ##############################################
