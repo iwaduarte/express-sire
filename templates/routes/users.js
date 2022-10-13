@@ -1,6 +1,6 @@
 `${
   opts.esm
-    ? `import express from 'express';\nimport UserModel from "../controllers/user";`
+    ? `import express from 'express';\nimport UserModel from "../controllers/user.js";`
     : `const express = require('express');\nconst UserModel = require('../controllers/user');`
 }
 

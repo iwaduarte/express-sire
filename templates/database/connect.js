@@ -1,7 +1,7 @@
 `${
   opts.esm
     ? `import Sequelize from 'sequelize';
-import loadModels from './loadModels';
+import loadModels from './loadModels.js';
 `
     : `const Sequelize = require('sequelize');
 const loadModels = require('./loadModels');
