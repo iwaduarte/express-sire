@@ -1,6 +1,6 @@
 `${
   opts.esm
-    ? "import SequelizeObject from '../database/connect'"
+    ? "import SequelizeObject from '../database/connect.js'"
     : "const SequelizeObject = require('../database/connect')"
 };
 

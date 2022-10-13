@@ -2,7 +2,7 @@
 
 ${
   opts.esm || ''
-    ? `import app from '../app';
+    ? `import app from '../app.js';
 import _debug from 'debug';
 import http from 'http'; 
 

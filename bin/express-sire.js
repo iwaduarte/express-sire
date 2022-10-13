@@ -50,7 +50,7 @@ const start = async () => {
     { filename: 'env.js', output: '.env' },
     { filename: 'app.js', prettify: 'app.js' },
     { filename: 'package.json.js', prettify: 'package.json', output: 'package.json' },
-    { filename: join('bin', 'www.js'), mode: MODE_0755, output: join('bin', 'www') },
+    { filename: join('bin', 'www.js'), mode: MODE_0755, output: join('bin', 'www.js') },
     ...(gitIgnore ? [{ filename: 'gitignore', output: '.gitignore' }] : []),
     join('routes', 'routes.js'),
     ...(sequelize
