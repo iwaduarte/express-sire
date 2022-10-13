@@ -1,4 +1,6 @@
 `# CREATE/POPULATE YOUR ENVIRONMENT VARIABLES
+DEBUG="${opts.projectName}:server"
+
 ${
   opts.sequelize
     ? `DATABASE_NAME=

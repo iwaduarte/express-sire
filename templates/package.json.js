@@ -12,6 +12,7 @@
     "express": "~4.18.2",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "dotenv":"16.0.3",
     ${opts.compression ? `"compression":"~1.7.4",` : ''}
     ${opts.helmet ? `"helmet":"~6.0.0",` : ''}
     ${opts.sequelize ? `"sequelize":"~6.24.0",\n"pg-hstore": "2.3.4",\n"pg":"8.8.0",\n"bcrypt":"3.0.5"` : ''}  },
