@@ -7,8 +7,8 @@ const generatePasswordHash = password => {
   return bcrypt.hash(password, saltRounds);
 };
 
-const user = (sequelize, DataTypes) => {
-  const User = sequelize.define(
+const User = (sequelize, DataTypes) => {
+  const _User = sequelize.define(
     'User',
     {
       email: {
@@ -20,16 +20,17 @@ const user = (sequelize, DataTypes) => {
         validate: {
           notNull: {
             msg: 'Email not provided'
+          },
+          isEmail: {
+            msg: 'It is not a valid email'
           }
         },
-        isEmail: {
-          msg: 'It is not a valid email'
+        unique: {
+          args: true,
+          msg: 'The email is already in use'
         }
       },
-      unique: {
-        args: true,
-        msg: 'The email is already in use'
-      },
+
       password: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -74,7 +75,7 @@ const user = (sequelize, DataTypes) => {
     }
   );
 
-  User.beforeValidate(async data => {
+  _User.beforeValidate(async data => {
     Object.keys(dataValues).forEach(key => {
       if (data[key] === '') {
         Object.assign(data, { [key]: null });
@@ -82,25 +83,25 @@ const user = (sequelize, DataTypes) => {
     });
   });
 
-  User.beforeCreate(async data => {
+  _User.beforeCreate(async data => {
     const password = await generatePasswordHash(data.password);
     const lastLogin = new Date();
     Object.assign(data, { password, lastLogin });
   });
 
-  User.beforeUpdate(async data => {
+  _User.beforeUpdate(async data => {
     if (data.password && data.changed('password')) {
       const password = await generatePasswordHash(data.password);
       Object.assign(data, { password });
     }
   });
 
-  User.associate = models => {
+  _User.associate = models => {
     // you can create associations with other models here
     // See https://sequelize.org/docs/v6/core-concepts/assocs/
   };
 
-  return User;
+  return _User;
 };
 
-${opts.esm ? 'export default user' : 'module.exports = user'};`;
+${opts.esm ? 'export default User' : 'module.exports = User'};`;
