@@ -2,16 +2,22 @@
 
 ${
   opts.esm || ''
-    ? `import app from '../app.js';
-import _debug from 'debug';
+    ? `import dotenv from "dotenv";
+dotenv.config();
+import app from '../app.js';
+import debugFactory from 'debug';
 import http from 'http'; 
-
-const debug = _debug('${opts.projectName}:server');
 `
-    : `const app = require('../app');
-const debug = require('debug')('${opts.projectName}:server');
-const http = require('http');`
-} 
+    : `require('dotenv').config();
+const app = require('../app');
+const debugFactory = require('debug')
+const http = require('http');
+    `
+}
+
+const { DEBUG } = process.env;
+debugFactory.enable(DEBUG);
+const debug= debugFactory('${opts.projectName}:server');
 
 /** Normalize a port into a number, string, or false. */
 const normalizePort = (val) => {

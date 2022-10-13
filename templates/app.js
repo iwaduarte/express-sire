@@ -1,8 +1,6 @@
 `${
   opts.esm
-    ? `import * as dotenv from 'dotenv';
-    dotenv.config();
-    import createError from 'http-errors';
+    ? `import createError from 'http-errors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
@@ -12,7 +10,7 @@ ${opts.helmet ? `import helmet from 'helmet';` : ``}
 import mainRouter from './routes/routes.js';
 ${opts.sequelize ? "import usersRouter from './routes/users.js';" : ''}
 `
-    : `require('dotenv').config();
+    : `
     const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
