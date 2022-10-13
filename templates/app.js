@@ -1,23 +1,31 @@
 `${
   opts.esm
-    ? `import createError from 'http-errors';
+    ? `import * as dotenv from 'dotenv';
+    dotenv.config();
+    import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 ${opts.compression ? `import compression from 'compression';` : ``}
 ${opts.helmet ? `import helmet from 'helmet';` : ``}
+
+import mainRouter from './routes/routes.js';
+${opts.sequelize ? "import usersRouter from './routes/users.js';" : ''}
 `
-    : `const createError = require('http-errors');
+    : `require('dotenv').config();
+    const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 ${opts.compression ? `const compression = require('compression');` : ``}
-${opts.helmet ? `const helmet = require('helmet');` : ``}`
-}
+${opts.helmet ? `const helmet = require('helmet');` : ``}
+
 const mainRouter = require('./routes/routes');
-${opts.sequelize ? "const usersRouter = require('./routes/users');" : ''}
+${opts.sequelize ? "const usersRouter = require('./routes/users');" : ''}`
+}
+
 const app = express();
 
 app.disable('x-powered-by');
@@ -25,7 +33,6 @@ app.disable('x-powered-by');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 ${opts.compression ? `app.use(compression());` : ``}
 ${
   opts.helmet
