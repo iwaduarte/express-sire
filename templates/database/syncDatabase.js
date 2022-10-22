@@ -1,7 +1,9 @@
-`${opts.esm ? 'import { sequelize }  from "./connect.js"' : "const { sequelize } = require('./connect');"}
+`${opts.esm ? "import SequelizeObject from './connect.js'" : "const { sequelize } = require('./connect');"}
 
 // update database tables (columns and metadata).
 // quick alternative to migrations.
+
+const { sequelize } = SequelizeObject;
 
 sequelize
   .sync({
