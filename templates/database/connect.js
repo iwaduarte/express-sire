@@ -2,9 +2,12 @@
   opts.esm
     ? `import Sequelize from 'sequelize';
 import loadModels from './loadModels.js';
+import dotenv from "dotenv";
+dotenv.config();
 `
     : `const Sequelize = require('sequelize');
 const loadModels = require('./loadModels');
+require('dotenv').config();
 `
 }  
 const { DataTypes } = Sequelize;
