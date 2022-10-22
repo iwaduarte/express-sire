@@ -76,7 +76,7 @@ const User = (sequelize, DataTypes) => {
   );
 
   _User.beforeValidate(async data => {
-    Object.keys(dataValues).forEach(key => {
+    Object.keys(data).forEach(key => {
       if (data[key] === '') {
         Object.assign(data, { [key]: null });
       }
