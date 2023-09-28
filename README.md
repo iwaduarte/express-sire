@@ -1,4 +1,9 @@
-<img src="https://user-images.githubusercontent.com/24816534/194910961-c1f17e78-efb0-4b52-b5ca-fc2cec3da0f5.png" alt="Express Sire Logo" width="358" style="max-width: 100%;">
+[![GitHub license](https://img.shields.io/github/license/iwaduarte/cross-post)](./LICENSE) ![npm version](https://img.shields.io/npm/v/express-sire)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
+
+<p align="center"><img src="https://user-images.githubusercontent.com/24816534/194910961-c1f17e78-efb0-4b52-b5ca-fc2cec3da0f5.png" alt="Express Sire Logo" width="358" style="max-width: 100%;"></p>
+
 
 Express-Sire: [Express ](https://www.npmjs.com/package/express) application generator with flavors.
 
